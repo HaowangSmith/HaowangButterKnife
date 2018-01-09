@@ -1,10 +1,10 @@
 # HaowangButterKnife
 ![](http://upload-images.jianshu.io/upload_images/2236459-03aec975aa258bff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-###前言
+### 前言
 在开发经常碰到注解形式,比如我们代码中常见@Override,也比如我之前发表的[Retrofit之解析xml (详细)](https://www.jianshu.com/p/4c9489fbc2aa)全是注解操作,还有很多第三方注解注入框架,像ButterKnife,Daggers等,注解的使用很广泛,今日以ButterKnife为例,来探其究竟.
-###准备知识
+### 准备知识
 java注解是在java5之后引入的,对于java注解完全不了解的请看[秒懂，Java 注解 （Annotation）你可以这样学](http://m.blog.csdn.net/briblue/article/details/73824058),看完可了解注解的基本用法.注解分为运行时注解和编译时注解,此处ButterKnife为编译时注解.
-###核心原理
+### 核心原理
 编译时注解是通过APT(Annotation Processing Tools)实现. APT是一种处理注释的工具,它对源代码文件进行检测找出其中的Annotation，使用Annotation进行额外的处理。 Annotation处理器在处理Annotation时可以根据源文件中的Annotation生成额外的源文件和其它的文件(文件具体内容由Annotation处理器的编写者决定),APT还会编译生成的源文件和原来的源文件，将它们一起生成class文件。
 ### 项目架构
 ![](http://upload-images.jianshu.io/upload_images/2236459-1c5dc456367e22c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/840)在Inject中关联inject-annotion![](http://upload-images.jianshu.io/upload_images/2236459-b2e6b014eb491213.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)在Inject-compiler中引入jar包,如图![](http://upload-images.jianshu.io/upload_images/2236459-06f0f01c1797f8b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -51,7 +51,7 @@ public interface ViewBinder <T>{
     void  bind(T tartget);
 }
 ```
-###Java库inject-annotion处理
+### Java库inject-annotion处理
 inject-annotion负责提供注解,此处只创建了BindView注解
 ```
 @Target(ElementType.FIELD)//表示可以给属性进行注解
@@ -60,7 +60,7 @@ public @interface BindView {
     int value();
 }
 ```
-###Java库Inject-compiler处理
+### Java库Inject-compiler处理
 Inject-compiler中处理核心逻辑,基本原理是,在编译时javac编译器会检查AbstractProcessor的子类，并且调用该类型的process函数，然后将添加了注解的所有元素都传递到process函数中，使得开发人员可以在编译器进行相应的处理.
 此处BindViewProcessor继承了AbstractProcessor,并通过@AutoService(Processor.class),表明自身为注解处理器,其中主要有四个方法,在init方法中做初始化;在getSupportedAnnotationTypes方法中指明支持哪些注解,此处指明的注解即为BindView;在getSupportedSourceVersion方法中返回最新的JDK版本;在process方法中做主逻辑处理
 ```
@@ -270,7 +270,7 @@ public class FileUtils {
 以上为手写注入ButterKnife的全部流程,其实并不复杂,因为只是简单实现效果,Dagger2等也是相同的道理
 此框架和ButterKnife使用方法是一致的,使用时别忘了在gradle中加入![](http://upload-images.jianshu.io/upload_images/2236459-c391eb79c2bb49a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-##结尾
+## 结尾
 奉上代码地址[https://github.com/HaowangSmith/HaowangButterKnife](https://github.com/HaowangSmith/HaowangButterKnife)
 相关知识链接[ButterKnife源码分析](https://www.jianshu.com/p/0f3f4f7ca505)
 
