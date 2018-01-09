@@ -1,5 +1,4 @@
 # HaowangButterKnife
-![](http://upload-images.jianshu.io/upload_images/2236459-03aec975aa258bff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ##前言
 在开发经常碰到注解形式,比如我们代码中常见@Override,也比如我之前发表的[Retrofit之解析xml (详细)](https://www.jianshu.com/p/4c9489fbc2aa)全是注解操作,还有很多第三方注解注入框架,像ButterKnife,Daggers等,注解的使用很广泛,今日以ButterKnife为例,来探其究竟.
 ###准备知识
